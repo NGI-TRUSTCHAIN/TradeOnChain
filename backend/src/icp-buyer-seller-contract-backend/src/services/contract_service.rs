@@ -86,7 +86,7 @@ impl<T: ContractRepository, U: WalletService> ContractService for ContractServic
             }
 
             if contract.issued_payment(){
-                //return Err(ApiError::internal("Payment already issued"));
+                return Err(ApiError::internal("Payment already issued"));
             }
 
             //eagerly set payment status to true to prevent double spending
