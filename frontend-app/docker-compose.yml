@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/api
+      - /api/node_modules
+    environment:
+      - NODE_ENV=docker
+    entrypoint: ["npm", "run", "start:docker"]

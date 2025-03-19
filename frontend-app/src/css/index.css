@@ -1,0 +1,651 @@
+
+
+/******************************************************************** loginPage */
+#loginPage .page__background {
+	background-color: var(--navbar-color);
+}
+#loginPage .page__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#loginPage #content {
+	text-align: center;
+}
+#loginPage #content #logo img {
+	width: 200px;
+}
+#loginPage #loginCard {
+	max-width: 400px;
+}
+#loginPage #loginCard .title {
+	text-align: center;
+	margin: 20px;
+    font-size: 16px;
+}
+@media screen and (max-width: 572px) {
+    #loginPage #loginCard {
+        margin: 20px;
+    }
+}
+/******************************************************************* accountPage */
+#accountPage #content {
+	padding: 20px;
+}
+#accountPage .card {
+	margin: 20px auto;
+}
+#accountPage .sectionTitle {
+	font-size: 18px;
+}
+#accountPage #accountCard {
+	text-align: center;
+}
+#accountPage #accountCard .icon {
+	font-size: 100px;
+	color: var(--dark-gray-color);
+}
+#accountPage #accountCard #fullname {
+	font-size: 16px;
+	margin: 5px 0;
+	font-weight: bold;
+	color: var(--black-color);
+}
+#accountPage #accountCard #principal {
+	font-size: 8px;
+	font-weight: normal;
+	color: var(--dark-gray-color);
+}
+#accountPage #editAccountBtn,
+#accountPage #addContractBtn {
+    font-size: 12px;
+    padding: 5px 20px;
+	min-width: 100px;
+}
+#accountPage #createContractCard {
+	display: none;
+}
+#accountPage #createContractForm {
+	padding: 0;
+	margin: 10px;
+}
+#accountPage #noContracts {
+	text-align: center;
+	color: var(--dark-gray-color);
+	padding: 40px 20px;
+}
+#accountPage #contractList .contract {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+}
+#accountPage #contractList .contract:last-child {
+	border-bottom: none;
+}
+#accountPage #contractList .contract .info .role {
+	color: var(--dark-gray-color);
+	font-size: 12px;
+}
+#accountPage #contractList .contract .info .status {
+	border-radius: 10px;
+	font-size: 12px;
+    background-color: var(--info);
+    color: var(--white-color);
+}
+#accountPage #contractList .contract .info .status.draft {
+    background-color: var(--dark-gray-color);
+    color: var(--white-color);
+}
+#accountPage #contractList .contract .info .status.delivered {
+    background-color: var(--success);
+    color: var(--white-color);
+}
+#accountPage #contractList .contract .info .status.completed {
+    background-color: var(--success);
+    color: var(--white-color);
+}
+#accountPage #contractList .contract .btn {
+	box-shadow: none;
+	min-width: auto;
+	padding: 5px 8px;
+	border-radius: 50%;
+}
+#accountPage #contractList .contract .btn:disabled {
+	background-color: transparent;
+}
+#accountPage #contractList .contract .btn .icon {
+	font-size: 24px;
+}
+/******************************************************************* editAccountPage */
+#editAccountPage .sectionTitle {
+	padding: 20px 5px;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--dark-gray-color);
+}
+/******************************************************************* contractPage */
+#editContractPage #content {
+	padding: 20px;
+}
+#editContractPage #editContractForm {
+	padding: 0;
+}
+#editContractPage #editContractCard .title {
+	font-weight: bold;
+	font-size: 18px;
+	color: var(--black-color);
+}
+#editContractPage #editContractCard .description {
+	font-weight: normal;
+	font-size: 14px;
+	color: var(--dark-gray-color);
+}
+#editContractPage #editContractCard .expansion-panel-toggler {
+	background-color: var(--secondary-color); /* #ffe0b2; */
+	color: var(--text-secondary-color); /* #FFF; */
+}
+#editContractPage #editContractCard .expansion-panel-body {
+	border: 2px solid var(--secondary-color); /* #ffe0b2; */
+}
+#editContractPage #editContractCard .expansion-panel-toggler.collapsed {
+	background-color: inherit;
+	color: inherit
+}
+#editContractPage #editContractCard .expansion-panel-toggler .material-icons {
+	color: var(--text-secondary-color);
+}
+#editContractPage #editContractCard .expansion-panel-toggler.collapsed .material-icons {
+	color: inherit
+}
+#editContractPage #editContractCard .expansion-panel-toggler .articleLink {
+	color: var(--white-color);
+	text-decoration: underline;
+}
+#editContractPage #editContractCard .expansion-panel-toggler.collapsed .articleLink {
+	color: var(--secondary-color);
+	text-decoration: underline;
+}
+#editContractPage #editContractCard #contractListGroup .expansion-panel .list-group-item {
+	border: 1px solid var(--light-gray-color);
+}
+#editContractPage #editContractCard .expansion-panel-body .alert {
+	font-size: 12px;
+	border-radius: 10px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+#editContractPage #editContractCard .expansion-panel-body .alert .icon {
+	font-size: 20px;
+	margin-right: 10px;
+}
+#editContractPage #editContractCard .expansion-panel-body .infoAlert .icon {
+	color: var(--dark-gray-color);
+}
+#editContractPage #editContractCard .expansion-panel-body .tipAlert .icon {
+	color: var(--orange);
+}
+#editContractPage #editContractCard .expansion-panel-body .alert a {
+	color: var(--secondary-color);
+	text-decoration: underline;
+}
+#editContractPage #editContractCard .article {
+	font-size: 14px;
+    margin: 10px 0;
+	text-align: justify;
+}
+#editContractPage #editContractCard #saveBtn {
+	max-width: 200px;
+	margin: 0 auto;
+}
+#editContractPage #editContractCard select[name=currency] {
+	min-width: 80px;
+	text-align: center;
+}
+#editContractPage #editContractCard .itemRow .itemAmount {
+	font-size: 10px;
+}
+#editContractPage #editContractCard .itemRow .removeItemBtn {
+    min-width: auto;
+    padding: 6px 6px;
+    font-size: 20px;
+    box-shadow: none;
+    border-radius: 50%;
+}
+#editContractPage #editContractCard .itemRow .input-group-append select {
+	min-width: 60px;
+}
+#editContractPage #editContractCard #productExportAlert {
+	display: none;
+	border-radius: 10px;
+}
+#editContractPage #editContractCard #addItemBtn {
+	border-radius: 10px;
+}
+/********** viewContractPage *****************/
+#viewContractPage #content {
+	padding: 20px;
+}
+#viewContractPage #switchSellerBuyerBtn {
+	font-size: 10px;
+	color: var(--dark-gray-color);
+	border-radius: 10px;
+}
+#viewContractPage .sectionTitle {
+	font-size: 18px;
+	margin: 60px 0 40px 0;
+}
+#viewContractPage .statusDiv {
+	margin: 20px 0 20px 0;
+}
+#viewContractPage .statusDiv .iconDiv .icon {
+	font-size: 60px;
+    background-color: var(--first-color);
+    color: #FFF;
+    border-radius: 50%;
+    padding: 15px;
+}
+#viewContractPage .statusDiv#draft .iconDiv .icon {
+    background-color: var(--warning);
+    color: #FFF;
+}
+#viewContractPage .statusDiv .title {
+	text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+	margin: 0 auto;
+	padding: 10px;
+}
+#viewContractPage .statusDiv .text {
+	text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    padding: 0 10px;
+}
+#viewContractPage .statusDiv .alert {
+	max-width: 400px;
+	margin: 0 auto;
+}
+#viewContractPage .statusDiv .alert .btn {
+	min-width: auto;
+    padding: 5px;
+    border-radius: 50%;
+}
+#viewContractPage .statusDiv #shipGoodsForm {
+	max-width: 500px;
+	padding-bottom: 0;
+}
+#viewContractPage .trackingDiv {
+	margin: 20px;
+}
+#viewContractPage .trackingDiv .stepper-horiz {
+	width: 100%
+}
+#viewContractPage .trackingDiv .stepper-horiz .step,
+#viewContractPage .trackingDiv .stepper-horiz .step:focus {
+    background: transparent;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 1.5rem;
+    text-align: center;
+}
+#viewContractPage .details .trackingDiv .stepper-horiz:before,
+#viewContractPage .trackingDiv .stepper-horiz .stepper:after, 
+#viewContractPage .trackingDiv .stepper-horiz .stepper:before {
+    border-top: 2px solid var(--secondary-color);
+}
+#viewContractPage .trackingDiv .stepper-horiz:before {
+    top: 40%;
+    right: 40px;
+    left: 40px;
+}
+#viewContractPage .trackingDiv .stepper-horiz .step:after, 
+#viewContractPage .trackingDiv .stepper-horiz .step:before {
+    top: 38%;
+}
+#viewContractPage .trackingDiv .stepper-horiz .step .stepper-icon {
+    background-color: var(--light-gray-color);	
+    border: 4px solid #FFF;	
+    color: #FFF;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    width: 50px;
+    height: 50px;
+}
+#viewContractPage .trackingDiv .stepper-horiz .step.done .stepper-icon,
+#viewContractPage .trackingDiv .stepper-horiz .step.active .stepper-icon {
+    background-color: var(--first-color);
+    border: 4px solid var(--secondary-color);
+	opacity: 1;
+}
+#viewContractPage .trackingDiv .stepper-horiz .step.active .stepper-icon {
+	border: 4px solid var(--app-secondary-color);
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+#viewContractPage .trackingDiv .stepper-horiz .step .stepper-text {
+    top: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+    color: var(--dark-gray-color);
+}
+#viewContractPage .trackingDiv .stepper-horiz .step.done .stepper-text,
+#viewContractPage .trackingDiv .stepper-horiz .step.active .stepper-text {
+    font-weight: bold;
+    color: var(--black-color);
+}
+@media screen and (max-width: 992px) { 
+    #viewContractPage .trackingDiv .stepper-horiz .step {
+        padding: 4px;
+    }
+    #viewContractPage .trackingDiv .stepper-horiz .step .stepper-text {
+        font-size: 11px;
+		line-height: 14px;
+        top: 5px;
+    }
+}
+#viewContractPage .shippingStatusDiv {
+	margin: 20px;
+}
+#viewContractPage .shippingStatusDiv .sectionTitle {
+	margin-bottom: 10px;
+}
+#viewContractPage .shippingStatusDiv .sectionSubtitle {
+	font-size: 12px;
+	font-style: italic;
+	text-align: center;
+}
+#viewContractPage .shippingStatusDiv .checkpoint {
+	padding-left: 0;
+	padding-right: 0;
+}
+#viewContractPage .shippingStatusDiv .checkpoint:first-child {
+	border-top: none;
+}
+#viewContractPage .shippingStatusDiv .checkpoint:last-child {
+	border-bottom: none;
+}
+#viewContractPage .shippingStatusDiv .checkpoint .time {
+	font-size: 12px;
+	color: var(--dark-gray-color);
+}
+#viewContractPage .shippingStatusDiv .checkpoint .time {
+	font-size: 12px;
+	color: var(--dark-gray-color);
+}
+#viewContractPage .paymentStatusDiv {
+	margin: 20px;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz {
+	width: 100%
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step,
+#viewContractPage .paymentStatusDiv .stepper-horiz .step:focus {
+    background: transparent;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 1.5rem;
+    text-align: center;
+}
+#viewContractPage .details .paymentStatusDiv .stepper-horiz:before,
+#viewContractPage .paymentStatusDiv .stepper-horiz .stepper:after, 
+#viewContractPage .paymentStatusDiv .stepper-horiz .stepper:before {
+    border-top: 2px solid var(--secondary-color);
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz:before {
+    top: 32%;
+    right: 40px;
+    left: 40px;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step:after, 
+#viewContractPage .paymentStatusDiv .stepper-horiz .step:before {
+    top: 38%;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step .stepper-icon {
+    background-color: var(--light-gray-color);	
+    border: 4px solid #FFF;	
+    color: #FFF;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 18px;
+    width: 50px;
+    height: 50px;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step .stepper-icon .icon {
+	font-size: 24px;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step.done .stepper-icon,
+#viewContractPage .paymentStatusDiv .stepper-horiz .step.active .stepper-icon {
+    background-color: var(--first-color);
+    border: 4px solid var(--secondary-color);
+	opacity: 1;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step.active .stepper-icon {
+	border: 4px solid var(--app-secondary-color);
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step .stepper-text {
+    top: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+    color: var(--dark-gray-color);
+}
+#viewContractPage .paymentStatusDiv .stepper-horiz .step.done .stepper-text,
+#viewContractPage .paymentStatusDiv .stepper-horiz .step.active .stepper-text {
+    font-weight: bold;
+    color: var(--black-color);
+}
+@media screen and (max-width: 992px) { 
+    #viewContractPage .paymentStatusDiv .stepper-horiz .step {
+        padding: 4px;
+    }
+    #viewContractPage .paymentStatusDiv .stepper-horiz .step .stepper-text {
+        font-size: 11px;
+		line-height: 14px;
+        top: 5px;
+    }
+}
+#viewContractPage .paymentsDiv,
+#viewContractPage .withdrawalsDiv {
+	margin: 20px;
+}
+#viewContractPage .paymentsDiv .payment,
+#viewContractPage .withdrawalsDiv .withdrawal {
+	font-size: 12px;
+	border: 1px solid var(--light-gray-color);
+}
+#viewContractPage .paymentsDiv .payment:first-child,
+#viewContractPage .withdrawalsDiv .withdrawal:first-child {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#viewContractPage .paymentsDiv .payment:last-child,
+#viewContractPage .withdrawalsDiv .withdrawal:last-child {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+#viewContractPage .paymentsDiv .payment .status,
+#viewContractPage .withdrawalsDiv .withdrawal .status {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: var(--secondary-color);
+	color: #FFF;
+	padding: 1px 10px;
+}
+#viewContractPage .paymentsDiv .payment .status.COMPLETED,
+#viewContractPage .withdrawalsDiv .withdrawal .status.COMPLETED {
+	background-color: var(--first-color);
+	color: #FFF;
+}
+#viewContractPage .paymentsDiv .payment .status.FAILED,
+#viewContractPage .paymentsDiv .payment .status.CANCELLED,
+#viewContractPage .withdrawalsDiv .withdrawal .status.FAILED,
+#viewContractPage .withdrawalsDiv .withdrawal .status.CANCELLED {
+	background-color: var(--danger);
+	color: #FFF;
+}
+#viewContractPage .paymentsDiv .payment .status.EXPIRED,
+#viewContractPage .paymentsDiv .payment .status.REFUNDED,
+#viewContractPage .withdrawalsDiv .withdrawal .status.EXPIRED,
+#viewContractPage .withdrawalsDiv .withdrawal .status.REFUNDED {
+	background-color: var(--dark-gray-color);
+	color: #FFF;
+}
+#viewContractPage .paymentsDiv .payment .time,
+#viewContractPage .withdrawalsDiv .withdrawal .time {
+	color: var(--dark-gray-color);
+}
+#viewContractPage .detailsDiv {
+	margin: 20px;
+}
+#viewContractPage .detailsDiv .table th {
+	font-weight: bold;
+}
+/********** viewContractChangesPage *****************/
+#viewContractChangesPage .title {
+	font-weight: bold;
+	font-size: 18px;
+	color: var(--black-color);
+}
+#viewContractChangesPage .description {
+	font-weight: normal;
+	font-size: 14px;
+	color: var(--dark-gray-color);
+}
+#viewContractChangesPage .when {
+	color: var(--dark-gray-color);
+	font-size: 12px;
+}
+#viewContractChangesPage .contractChange {
+	font-size: 14px;
+	line-height: 28px;
+}
+#viewContractChangesPage .contractChange span {
+	font-family: monospace;
+    font-size: 12px;
+    border: 1px solid var(--dark-gray-color);
+    border-radius: 10px;
+    padding: 2px 8px;
+}
+#viewContractChangesPage .contractChange .fieldName {
+	font-style: bold;
+}
+#viewContractChangesPage .contractChange .oldValue {
+	color: var(--danger);
+    border-color: var(--danger);
+	text-decoration: line-through;
+}
+#viewContractChangesPage .contractChange .newValue {
+	color: var(--success);
+    border-color: var(--success);
+}
+/********** shareContractPage *****************/
+#shareContractPage #content {
+	padding: 20px;
+}
+#shareContractPage #shareContractForm {
+	padding: 0;
+	margin: 10px;
+}
+#shareContractPage #url {
+    color: var(--black-color);
+    font-size: 14px;
+    text-align: center;
+	margin: 0 auto;
+}
+#shareContractPage #shareBtn,
+#shareContractPage #copyBtn {
+    background-color: var(--secondary-color);
+	color: var(--text-secondary-color);
+}
+/********** addContractPage *****************/
+#addContractPage #content {
+	padding: 20px;
+}
+#addContractPage .bottomToolbar {
+	background-color: transparent;
+}
+#addContractPage #addContractCard {
+	margin: 20px auto;
+	text-align: center;
+}
+#addContractPage #addContractCard .icon {
+	font-size: 100px;
+	color: var(--first-color);
+}
+#addContractPage #addContractCard #name {
+	font-size: 20px;
+	line-height: 28px;
+	margin: 10px 0;
+	font-weight: bold;
+	color: var(--black-color);
+}
+#addContractPage #addContractCard #tip {
+	font-size: 14px;
+	font-weight: italic;
+	color: var(--dark-gray-color);
+}
+#addContractPage #cancelBtn {
+	display: block;
+	text-decoration: underline;
+    font-size: 10px;
+    color: var(--black-color);
+	cursor: pointer;
+}
+
+/********** adminPage *****************/
+#adminPage #content {
+	padding: 20px;
+}
+#adminPage .KPI {
+	text-align: center;
+}
+#adminPage .balance {
+	font-size: 45px;
+	font-weight: bold;
+	color: var(--secondary-color);
+}
+#adminPage .balanceLabel {
+	color: var(--secondary-color);
+}
+#adminPage #canisterWalletLabel {
+	color: var(--secondary-color);
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+#adminPage #canisterWalletAddress {
+	color: var(--dark-gray-color);
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    user-select: text;
+}
+#adminPage #userList .user {
+	font-size: 12px;
+}
+#adminPage #userListLabel {
+	font-size: 18px;
+	line-height: 40px;
+	color: var(--dark-gray-color);
+}

@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="mobile-web-abb-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<link rel="apple-touch-icon" sizes="57x57" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=57&height=57">
+	<link rel="apple-touch-icon" sizes="60x60" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=60&height=60">
+	<link rel="apple-touch-icon" sizes="72x72" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=72&height=72">
+	<link rel="apple-touch-icon" sizes="76x76" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=76&height=76">
+	<link rel="apple-touch-icon" sizes="114x114" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=114&height=114">
+	<link rel="apple-touch-icon" sizes="120x120" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=120&height=120">
+	<link rel="apple-touch-icon" sizes="144x144" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=144&height=144">
+	<link rel="apple-touch-icon" sizes="152x152" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=152&height=152">
+	<link rel="apple-touch-icon" sizes="180x180" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=180&height=180">
+	<meta name="msapplication-TileColor" content="#05202e">
+	<meta name="msapplication-TileImage" content="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=144&height=144">
+	<meta name="msapplication-navbutton-color" content="#05202e">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<link rel="manifest" href="./manifest.json">
+	<link rel="icon" type="image/png" sizes="96x96" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=96&height=96">
+	<link rel="icon" type="image/png" sizes="32x32" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=32&height=32">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=16&height=16">
+    <meta name="application-name" content="TradeOnChain">
+	<meta name="theme-color" content="#05202e">
+	<meta name="color-scheme" content="dark">
+	<!-- SEO properties -->
+ 	<title>APP TradeOnChain - Secure, Transparent, and Efficient Blockchain-Based Trade contracts</title>
+	<meta name="description" content="Secure, Transparent, and Efficient Blockchain-Based Trade contracts">
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap">	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	
+	<!-- Custom CSS and JS -->
+	<link rel="stylesheet" href="./css/style.css">
+  	<link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+	<ons-toast id="toast" animation="ascend"><div id="message"></div><button onclick="toast.hide()">OK</button></ons-toast>
+	<ons-popover id="popover" direction="up" cancelable><div id="message"></div></ons-popover>	
+
+	<div id="splashScreen">
+		<div id="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=300&height=300"/></div>
+	</div>
+	
+	<div class="navdrawer navdrawer-right" id="navdrawer" tabindex="-1">
+		<div class="navdrawer-content">
+			<ul class="list-group list-group-flush">		
+				<div id="logo"><img src="../public/assets/logo-full-white.png"/></div>
+				<li class="list-group-item list-group-item-action">
+					<span class="material-symbols-outlined icon">person</span>
+					<span class="text" data-i18n="general.My_account"></span>
+				</li>
+				<li class="list-group-item list-group-item-action" id="adminBtn" style="display: none">
+					<span class="material-symbols-outlined icon">settings</span>
+					<span class="text" data-i18n="general.Admin"></span>
+				</li>
+				<li class="list-group-item list-group-item-action text-danger" id="logoutBtn">
+					<span class="material-symbols-outlined icon">logout</span>
+					<span class="text">Logout</span>
+				</li>
+			</ul>
+		</div>	
+	</div>
+
+
+	<div class="modal" id="confirmOperationModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div>Sei sicuro di voler procedere con l'operazione?</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-outline" data-dismiss="modal" type="button">Annulla</button>
+					<button class="btn btn-outline" type="button" id="confirmOperationBtn">Conferma</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="languageModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" data-i18n="general.APP_Language"></h5>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body">
+					<div class="list-group list-group-flush">
+						<div class="list-group-item list-group-item-action d-flex justify-content-left languageBtn" id="it">
+							<span class="flag icon flag-icon-it"></span>
+							<span class="ml-2" data-i18n="languages.Italian">
+						</div>
+						<div class="list-group-item list-group-item-action d-flex justify-content-left languageBtn" id="en">
+							<span class="flag icon flag-icon-gb"></span>
+							<span class="ml-2" data-i18n="languages.English">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="articleModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Articolo</h5>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<div class="modal-body"></div>
+			</div>
+		</div>
+	</div>
+
+	<ons-navigator id="myNavigator"></ons-navigator>
+
+	<script type="module" src="./js/script.js"></script>
+	<script type="module" src="./js/index.js"></script>
+</body>
+</html>	
+
+<template id="loginTemplate">
+	<ons-page id="loginPage">
+		<div id="content">
+			<a href="/" id="logo"><img src="../public/assets/logo-full-white.png"/></a>
+			<div class="card smartCard" id="loginCard">
+				<div class="title">Login with your Interned Identity to get started on TradeOnChain.</div>
+				<div class="text-center">
+					<button type="button" class="btn smartBtn" id="loginBtn">Login</button>
+				</div>
+			</div>
+		</div>
+	</ons-page>
+</template>
+
+<template id="footerMenuTemplate">
+	<ons-page id="footerMenuPage">
+		<ons-toolbar id="topToolbar" modifier="material">
+			<div class="left">
+				<ons-toolbar-button>
+					<a href="/"><img id="logo" src="../public/assets/logo-full-white.png"></a>
+				</ons-toolbar-button>
+			</div>
+			<div class="right">
+				<ons-toolbar-button id="languageBtn" role="button" data-toggle="modal" data-target="#languageModal" data-i18n="[title]general.APP_Language"><span class='flag icon flag-icon-gb'></span></ons-toolbar-button>
+				<ons-toolbar-button id="accountBtn" role="button" data-i18n="[title]general.My_account"><span class="material-symbols-outlined icon">person</span><span class="badge badge-danger ongoingNotifications"></span></ons-toolbar-button>
+				<ons-toolbar-button id="adminBtn" role="button" data-i18n="[title]general.Admin" style="display: none"><span class="material-symbols-outlined icon">settings</span></ons-toolbar-button>
+				<ons-toolbar-button id="menuBtn" data-toggle="navdrawer" data-target="#navdrawer"role="button" data-i18n="[title]general.Menu"><span class="material-symbols-outlined icon">menu</span></ons-toolbar-button>
+			</div>
+		</ons-toolbar>
+		<ons-tabbar id="footerTabbar" position="bottom" modifier="transparent" hide-tabs="true">
+			<ons-tab page="accountTemplate" data-i18n="[label]general.My_account" data-path="info">
+				<span class="material-symbols-outlined icon">person</span>
+			</ons-tab>
+		</ons-tabbar>	
+	</ons-page>
+</template>
+
+<template id="accountTemplate">
+	<ons-page id="accountPage">
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="sectionTitle" data-i18n="accountPage.My_account"></div>
+				<button class="btn smartBtn" id="editAccountBtn" data-i18n="[title]general.Edit;general.Edit"></button>
+			</div>
+			<div class="card smartCard" id="accountCard">
+				<div class="material-symbols-outlined icon">account_circle</div>
+				<div id="fullname" data-i18n="accountPage.Anonymous_identity"></div>
+				<div id="principal"></div>
+			</div>
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="sectionTitle" data-i18n="accountPage.My_contracts"></div>
+				<button class="btn smartBtn" id="addContractBtn" data-i18n="[title]general.Add;general.Add"></button>
+			</div>
+			<div class="card smartCard" id="createContractCard">
+				<form class="smartForm" id="createContractForm">
+					<div class="form-row">
+						<div class="col form-group">
+							<label for="model" data-i18n="accountPage.Contract_model"></label>
+							<select class="form-control" name="model" required>
+								<option value="icc">ICC</option>
+							</select>
+							<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+						</div>
+						<div class="col form-group">
+							<label for="role" data-i18n="accountPage.My_role"></label>
+							<select class="form-control" name="role" required>
+								<option value="seller" data-i18n="accountPage.Seller"></option>
+								<option value="buyer" data-i18n="accountPage.Buyer"></option>
+							</select>
+							<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" data-i18n="accountPage.Contract_name"></label>
+						<input type="text" class="form-control" name="name" data-i18n="[placeholder]accountPage.Contract_name" autocomplete="off" required/>
+						<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+					</div>
+					<div class="text-center">
+						<button class="smartBtn" id="createContractBtn" data-i18n="[title]accountPage.Create_contract;accountPage.Create_contract"></button>
+					</div>
+				</form>
+			</div>
+			<div class="card smartCard">
+				<div class="list-group list-group-flush" id="contractList">
+					
+				</div>
+				<div id="noContracts" data-i18n="accountPage.No_contracts_to_show"></div>
+			</div>
+		</div>
+			
+		<div id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md" id="firstCol">
+						<a href="/" id="logo"><img src="../public/assets/logo-full-white.png"/></a>
+					</div>
+					<div class="col-md">
+						<div><span class="title">Menu</span></div>
+						<div class="links">
+							<div class="link"><a href="#">Home</a></div>
+							<div class="link"><a href="#">My Account</a></div>
+						</div>
+					</div>
+					<div class="col-md">
+						<div><span class="title">Contact us</span></div>
+						<div class="links">
+							<div class="link"><a href="mailto:info@tradeonchain.com">Email</a></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div id="copyrightDiv">© 2024 TradeOnChain. All rights reserved.</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+	
+	</ons-page>
+</template>
+
+<template id="editAccountTemplate">
+    <ons-page id="editAccountPage">
+        <ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center" data-i18n="editAccountPage.Edit_account"></span>
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+        <div class="container" id="content">
+			<form action="#" id="editAccountForm" class="smartForm">
+				<div class="card smartCard" id="editAccountCard">
+					<input type="hidden" class="form-control" name="uid" id="uid" value=""/>
+					<div class="sectionTitle" data-i18n="editAccountPage.Contact_data"></div>
+					<div class="form-row">						
+						<div class="col-6">
+							<div class="form-group">
+								<label for="name" data-i18n="editAccountPage.Name"></label>
+								<input type="text" class="form-control" name="name" id="name"  data-i18n="[placeholder]editAccountPage.PLACEHOLDER_name" required maxlength="100" autocomplete="given-name"/>
+								<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label for="surname" data-i18n="editAccountPage.Surname"></label>				
+								<input type="text" class="form-control" name="surname" id="surname" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_surname" required maxlength="100" autocomplete="family-name"/>
+								<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="email" data-i18n="editAccountPage.Email"></label>
+						<input type="email" class="form-control" name="email" id="email" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="email"/>					
+						<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+					</div>
+					<div class="form-group">						
+						<label for="phone" data-i18n="editAccountPage.Phone"></label>
+						<input type="hidden" name="prefix" id="prefix" value="+39"/>
+						<input type="tel" class="form-control" name="phone" id="phone" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_phone" pattern="\d{8,12}" required maxlength="20" autocomplete="phone"/>
+						<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+					</div>
+					<div class="form-group">
+						<label for="birthdate" data-i18n="editAccountPage.Birthdate"></label>
+						<input type="date" class="form-control" name="birthdate" id="birthdate" data-i18n="[placeholder]editAccountPage.birthdate" autocomplete="none"/>
+					</div>
+					<div class="sectionTitle" data-i18n="editAccountPage.Main_address"></div>
+					<div class="form-group">
+						<label for="street" data-i18n="editAccountPage.Street"></label>
+						<input type="text" class="form-control" name="street" id="street" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_street" maxlength="255"/>
+					</div>
+					<div class="form-row">
+						<div class="col-8">
+							<div class="form-group">
+								<label for="city" data-i18n="editAccountPage.City"></label>
+								<input type="text" class="form-control" name="city" id="city" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_city" maxlength="255"/>
+							</div>
+						</div>
+						<div class="col-4">					
+							<div class="form-group">
+								<label for="province" data-i18n="editAccountPage.Province"></label>
+								<input type="text" class="form-control" name="province" id="province" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_province" maxlength="50"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="region" data-i18n="editAccountPage.Region"></label>
+								<input type="text" class="form-control" name="region" id="region" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_region" maxlength="255"/>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label for="country" data-i18n="editAccountPage.Country"></label>
+								<input type="text" class="form-control" name="country" id="country" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_country" maxlength="255"/>
+							</div>
+						</div>
+						<div class="col-sm-4">					
+							<div class="form-group">
+								<label for="postalCode" data-i18n="editAccountPage.Postal_code"></label>
+								<input type="text" class="form-control" name="postalCode" id="postalCode" data-i18n="[placeholder]editAccountPage.PLACEHOLDER_postalCode" maxlength="50"/>
+							</div>
+						</div>
+					</div>
+					<div class="text-center">
+						<button class="btn smartBtn" id="saveBtn" data-i18n="general.Save"></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</ons-page>
+</template>
+
+
+<template id="editContractTemplate">
+	<ons-page id="editContractPage">
+		<ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center" data-i18n="editContractPage.Edit_contract"></span>
+			<div class="right">
+				<ons-toolbar-button id="saveBtn" disabled>
+					<span class="material-symbols-outlined icon">save</span>
+				</ons-toolbar-button>
+			</div>
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<form id="editContractForm" class="smartForm" action="#">
+				<input type="hidden" name="id" id="id" value="">
+				<input type="hidden" name="uid" id="uid" value="">
+			
+				<div class="card smartCard" id="editContractCard">
+					<div class="card-header" data-i18n="[data-intro]intro.WELCOME">
+						<div class="title" data-i18n="general.International_sale_contract"></div>
+						<div class="description" data-i18n="general.INTERNATION_SALE_CONTRACT_DESCRIPTION"></div>
+					</div>
+					<div class="alerts p-2">
+						<!-- a seconda del compratore e del codice prodotto -->
+						<div class="alert alert-danger mb-0" id="productExportAlert" data-i18n="general.PRODUCT_EXPORT_ALERT_MSG"></div>
+						<div class="alert alert-danger mb-0" id="shippingMaxDateAlert" data-i18n="general.SHIPPING_MAX_DATE_ALERT_MSG"></div>
+					</div>
+					<div class="list-group list-group-flush" id="contractListGroup">
+						<!-- Venditore -->
+						<div class="expansion-panel list-group-item" data-i18n="[data-intro]intro.SELLER">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#sellerCollapse">
+								<div data-i18n="general.Seller"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="sellerCollapse">
+								<div class="expansion-panel-body">
+									<div class="list-group" id="sellerListGroup">
+										<!-- Dati venditore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#sellerInfo">
+												<div data-i18n="general.Data"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#sellerListGroup" id="sellerInfo">
+												<div class="expansion-panel-body">
+													<div class="form-group">
+														<label for="sellerName" data-i18n="general.Business_name"></label>
+														<input type="text" class="form-control" name="sellerName" data-i18n="[placeholder]general.Business_name" autocomplete="off" required/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="sellerVatCode" data-i18n="general.Vat_code"></label>
+														<input type="text" class="form-control" name="sellerVatCode" data-i18n="[placeholder]general.Vat_code" autocomplete="off"/>
+													</div>
+													<div class="form-row">
+														<div class="col-8">
+															<div class="form-group">
+																<label for="sellerStreet" data-i18n="general.Street_or_Square">Via o Piazza</label>
+																<input type="text" class="form-control" name="sellerStreet" data-i18n="[placeholder]general.Street_or_Square" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-4">					
+															<div class="form-group">
+																<div class="form-group">
+																	<label for="sellerCountry" data-i18n="general.Country">Stato</label>
+																	<select type="text" class="form-control" name="sellerCountry">
+																		<option value="" data-i18n="general.Select"></option>
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="sellerCity" data-i18n="general.City"></label>
+																<input type="text" class="form-control" name="sellerCity" data-i18n="[placeholder]general.City" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="sellerProvince" data-i18n="general.Province">Provincia</label>
+																<input type="text" class="form-control" name="sellerProvince" data-i18n="[placeholder]general.Province" maxlength="50"/>
+															</div>
+														</div>										
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="sellerPostalCode" data-i18n="general.Postal_code"></label>
+																<input type="text" class="form-control" name="sellerPostalCode" data-i18n="[placeholder]general.Postal_code"  maxlength="50"/>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Legale rappresentante venditore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#sellerLegalRepresentative">
+												<div data-i18n="general.Legal_representative"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#sellerListGroup" id="sellerLegalRepresentative">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="sellerLegalRepresentativeName" data-i18n="general.Name"></label>
+																<input type="text" class="form-control" name="sellerLegalRepresentativeName" data-i18n="[placeholder]general.Name" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+														<div class="col-6">													
+															<div class="form-group">
+																<label for="sellerLegalRepresentativeSurname" data-i18n="general.Surname"></label>
+																<input type="text" class="form-control" name="sellerLegalRepresentativeSurname" data-i18n="[placeholder]general.Surname" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="sellerLegalRepresentativeEmail" data-i18n="general.Email"></label>
+														<input type="email" class="form-control" name="sellerLegalRepresentativeEmail" data-i18n="[placeholder]general.Email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="off"/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="sellerLegalRepresentativePhone" data-i18n="general.Phone"></label>
+														<input type="hidden" name="sellerLegalRepresentativePrefix" value="+39"/>
+														<input type="tel" class="form-control" name="sellerLegalRepresentativePhone" data-i18n="[placeholder]general.Phone" pattern="\d{8,12}" maxlength="20" autocomplete="off"/>					
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<div class="custom-control custom-switch">
+															<input class="custom-control-input" id="sellerSignatory" name="sellerSignatory" type="checkbox">
+															<span class="custom-control-track"></span>
+															<label class="custom-control-label" for="sellerSignatory" data-i18n="general.Signatory"></label>
+														</div>
+														<small class="form-text text-muted" data-i18n="general.SIGNATORY_TIP"></small>
+													</div>
+													<div class="form-group">
+														<div class="custom-control custom-switch">
+															<input class="custom-control-input" id="sellerPersonalResponsibility" name="sellerPersonalResponsibility" type="checkbox">
+															<span class="custom-control-track"></span>
+															<label class="custom-control-label" for="sellerPersonalResponsibility" data-i18n="general.Personal_responsibility"></label>
+														</div>
+														<small class="form-text text-muted" data-i18n="general.PERSONAL_RESPONSIBILITY_TIP"></small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Contatto venditore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#sellerContact">
+												<div data-i18n="general.Contact_person"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#sellerListGroup" id="sellerContact">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="sellerContactName" data-i18n="general.Name"></label>
+																<input type="text" class="form-control" name="sellerContactName" data-i18n="[placeholder]general.Name" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+														<div class="col-6">													
+															<div class="form-group">
+																<label for="sellerContactSurname" data-i18n="general.Surname"></label>
+																<input type="text" class="form-control" name="sellerContactSurname" data-i18n="[placeholder]general.Surname" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="sellerContactEmail" data-i18n="general.Email"></label>
+														<input type="email" class="form-control" name="sellerContactEmail" data-i18n="[placeholder]general.Email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="off"/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="sellerContactPhone" data-i18n="general.Phone"></label>
+														<input type="hidden" name="sellerContactPrefix" id="sellerContactPrefix" value="+39"/>
+														<input type="tel" class="form-control" name="sellerContactPhone" data-i18n="[placeholder]general.Phone" pattern="\d{8,12}" maxlength="20" autocomplete="off"/>					
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Compratore -->
+						<div class="expansion-panel list-group-item" data-i18n="[data-intro]intro.BUYER">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#buyerCollapse">
+								<div data-i18n="general.Buyer"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="buyerCollapse">
+								<div class="expansion-panel-body">
+									<div class="list-group" id="buyerListGroup">
+										<!-- Dati compratore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#buyerInfo">
+												<div data-i18n="general.Data"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#buyerListGroup" id="buyerInfo">
+												<div class="expansion-panel-body">
+													<div class="form-group">
+														<label for="buyerName" data-i18n="general.Business_name"></label>
+														<input type="text" class="form-control" name="buyerName" data-i18n="[placeholder]general.Business_name" autocomplete="off" required/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="buyerVatCode" data-i18n="general.Vat_code"></label>
+														<input type="text" class="form-control" name="buyerVatCode" data-i18n="[placeholder]general.Vat_code" autocomplete="off"/>
+													</div>
+													<div class="form-row">
+														<div class="col-8">
+															<div class="form-group">
+																<label for="buyerStreet" data-i18n="general.Street_or_Square">Via o Piazza</label>
+																<input type="text" class="form-control" name="buyerStreet" data-i18n="[placeholder]general.Street_or_Square" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-4">					
+															<div class="form-group">
+																<div class="form-group">
+																	<label for="buyerCountry" data-i18n="general.Country">Stato</label>
+																	<select type="text" class="form-control" name="buyerCountry">
+																		<option value="" data-i18n="general.Select"></option>
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="buyerCity" data-i18n="general.City"></label>
+																<input type="text" class="form-control" name="buyerCity" data-i18n="[placeholder]general.City" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="buyerProvince" data-i18n="general.Province">Provincia</label>
+																<input type="text" class="form-control" name="buyerProvince" data-i18n="[placeholder]general.Province" maxlength="50"/>
+															</div>
+														</div>										
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="buyerPostalCode" data-i18n="general.Postal_code"></label>
+																<input type="text" class="form-control" name="buyerPostalCode" data-i18n="[placeholder]general.Postal_code" maxlength="50"/>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Legale rappresentante compratore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#buyerLegalRepresentative">
+												<div data-i18n="general.Legal_representative"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#buyerListGroup" id="buyerLegalRepresentative">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="buyerLegalRepresentativeName" data-i18n="general.Name"></label>
+																<input type="text" class="form-control" name="buyerLegalRepresentativeName" data-i18n="[placeholder]general.Name" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+														<div class="col-6">													
+															<div class="form-group">
+																<label for="buyerLegalRepresentativeSurname" data-i18n="general.Surname"></label>
+																<input type="text" class="form-control" name="buyerLegalRepresentativeSurname" data-i18n="[placeholder]general.Surname" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="buyerLegalRepresentativeEmail" data-i18n="general.Email"></label>
+														<input type="email" class="form-control" name="buyerLegalRepresentativeEmail" data-i18n="[placeholder]general.Email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="off"/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="buyerLegalRepresentativePhone" data-i18n="general.Phone"></label>
+														<input type="hidden" name="buyerLegalRepresentativePrefix" value="+39"/>
+														<input type="tel" class="form-control" name="buyerLegalRepresentativePhone" data-i18n="[placeholder]general.Phone" pattern="\d{8,12}" maxlength="20" autocomplete="off"/>					
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<div class="custom-control custom-switch">
+															<input class="custom-control-input" id="buyerSignatory" name="buyerSignatory" type="checkbox">
+															<span class="custom-control-track"></span>
+															<label class="custom-control-label" for="buyerSignatory" data-i18n="general.Signatory"></label>
+														</div>
+														<small class="form-text text-muted" data-i18n="general.SIGNATORY_TIP"></small>
+													</div>
+													<div class="form-group">
+														<div class="custom-control custom-switch">
+															<input class="custom-control-input" id="buyerPersonalResponsibility" name="buyerPersonalResponsibility" type="checkbox">
+															<span class="custom-control-track"></span>
+															<label class="custom-control-label" for="buyerPersonalResponsibility" data-i18n="general.Personal_responsibility"></label>
+														</div>
+														<small class="form-text text-muted" data-i18n="general.PERSONAL_RESPONSIBILITY_TIP"></small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Contatto compratore -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#buyerContact">
+												<div data-i18n="general.Contact_person"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#buyerListGroup" id="buyerContact">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="buyerContactName" data-i18n="general.Name"></label>
+																<input type="text" class="form-control" name="buyerContactName" data-i18n="[placeholder]general.Name" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+														<div class="col-6">													
+															<div class="form-group">
+																<label for="buyerContactSurname" data-i18n="general.Surname"></label>
+																<input type="text" class="form-control" name="buyerContactSurname" data-i18n="[placeholder]general.Surname" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="buyerContactEmail" data-i18n="general.Email"></label>
+														<input type="email" class="form-control" name="buyerContactEmail" data-i18n="[placeholder]general.Email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="off"/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="buyerContactPhone" data-i18n="general.Phone"></label>
+														<input type="hidden" name="buyerContactPrefix" id="buyerContactPrefix" value="+39"/>
+														<input type="tel" class="form-control" name="buyerContactPhone" data-i18n="[placeholder]general.Phone" pattern="\d{8,12}" maxlength="20" autocomplete="off"/>					
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Condizioni generali -->
+						<div class="expansion-panel list-group-item" data-i18n="[data-intro]intro.GENERAL_TERMS">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#generalTerms">
+								<div data-i18n="general.Terms"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="generalTerms">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="[html]terms.TIP_MSG"></span>
+									</div>
+									<div class="list-group" id="termsListGroup">
+										<!-- Art. 1 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art1">
+												<div data-i18n="terms.ART_1.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art1">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_1.ART_1.1"></div>
+													<div class="article" data-i18n="terms.ART_1.ART_1.2"></div>
+													<div class="article" data-i18n="terms.ART_1.ART_1.3"></div>
+													<div class="article" data-i18n="terms.ART_1.ART_1.4"></div>
+													<div class="article" data-i18n="terms.ART_1.ART_1.5"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 2 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art2">
+												<div data-i18n="terms.ART_2.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art2">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_2.ART_2.1"></div>
+													<div class="article" data-i18n="terms.ART_2.ART_2.2"></div>
+													<div class="article" data-i18n="terms.ART_2.ART_2.3"></div>
+													<div class="article" data-i18n="terms.ART_2.ART_2.4"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 3 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art3">
+												<div data-i18n="terms.ART_3.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art3">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_3.TEXT"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 4 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art4">
+												<div data-i18n="terms.ART_4.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art4">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_4.ART_4.1"></div>
+													<div class="article" data-i18n="terms.ART_4.ART_4.2"></div>
+													<div class="article" data-i18n="terms.ART_4.ART_4.3"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 5 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art5">
+												<div data-i18n="terms.ART_5.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art5">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_5.ART_5.1"></div>
+													<div class="article" data-i18n="terms.ART_5.ART_5.2"></div>
+													<div class="article" data-i18n="terms.ART_5.ART_5.3"></div>
+													<div class="article" data-i18n="terms.ART_5.ART_5.4"></div>
+													<div class="article" data-i18n="terms.ART_5.ART_5.5"></div>
+													<div class="article" data-i18n="terms.ART_5.ART_5.6"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 6 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art6">
+												<div data-i18n="terms.ART_6.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art6">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_6.ART_6.1"></div>
+													<div class="article" data-i18n="terms.ART_6.ART_6.2"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 7 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art7">
+												<div data-i18n="terms.ART_7.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art7">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_7.TEXT"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 8 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art8">
+												<div data-i18n="terms.ART_8.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art8">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_8.TEXT"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 9 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art9">
+												<div data-i18n="terms.ART_9.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art9">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_9.TEXT"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 10 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art10">
+												<div data-i18n="terms.ART_10.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art10">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_10.ART_10.1"></div>
+													<div class="article" data-i18n="terms.ART_10.ART_10.2"></div>
+													<div class="article" data-i18n="terms.ART_10.ART_10.3"></div>
+													<div class="article" data-i18n="terms.ART_10.ART_10.4"></div>
+													<div class="article" data-i18n="terms.ART_10.ART_10.5"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 11 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art11">
+												<div data-i18n="terms.ART_11.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art11">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_11.ART_11.1"></div>
+													<div class="article" data-i18n="terms.ART_11.ART_11.2"></div>
+													<div class="article" data-i18n="terms.ART_11.ART_11.3"></div>
+													<div class="article" data-i18n="terms.ART_11.ART_11.4"></div>
+													<div class="article" data-i18n="terms.ART_11.ART_11.5"></div>
+													<div class="article" data-i18n="terms.ART_11.ART_11.6"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 12 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art12">
+												<div data-i18n="terms.ART_12.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art12">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_12.ART_12.1"></div>
+													<div class="article" data-i18n="terms.ART_12.ART_12.2"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 13 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art13">
+												<div data-i18n="terms.ART_13.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art13">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_13.ART_13.1"></div>
+													<div class="article" data-i18n="terms.ART_13.ART_13.2"></div>
+													<div class="article" data-i18n="terms.ART_13.ART_13.3"></div>
+													<div class="article" data-i18n="terms.ART_13.ART_13.4"></div>
+												</div>
+											</div>
+										</div>
+										<!-- Art. 14 -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#art14">
+												<div data-i18n="terms.ART_14.TITLE"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#termsListGroup" id="art14">
+												<div class="expansion-panel-body">
+													<div class="article" data-i18n="terms.ART_14.ART_14.1"></div>
+													<div class="article" data-i18n="terms.ART_14.ART_14.2"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-1 Prodotti venduti -->
+						<div class="expansion-panel list-group-item" data-i18n="[data-intro]intro.SPECIAL_TERMS">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse1">
+								<div data-i18n="[html]A1.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse1">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A1.TIP_MSG"></span>
+									</div>
+									<div id="itemRows">
+										<div class="expansion-panel list-group-item itemRow">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapseItem">
+												<div>
+													<div class='itemName' data-i18n="A1.Unnamed_product"></div>
+													<div class='itemAmount'></div>
+												</div>
+												<button class="btn removeItemBtn" data-i18n="[title]A1.Remove_product"><span class="material-symbols-outlined icon">delete</span></button>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#itemRows" id="collapseItem">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-3 col-xl-3">
+															<div class="form-group">
+																<label for="itemCode[]" data-i18n="A1.Code"></label>
+																<input type="text" class="form-control" name="itemCode[]" data-i18n="[placeholder]A1.Product_code" required maxlength="50"/>
+															</div>
+														</div>
+														<div class="col-9 col-xl-5">	
+															<div class="form-group">
+																<label for="itemDescription[]" data-i18n="A1.Description"></label>
+																<input type="text" class="form-control" name="itemDescription[]" data-i18n="[placeholder]A1.Product_description" required maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-6 col-xl-2">	
+															<div class="form-group">
+																<label for="itemQuantity[]" data-i18n="A1.Quantity"></label>
+																<input type="number" class="form-control text-center" name="itemQuantity[]" data-i18n="[placeholder]A1.Quantity" required min="1" value="1" maxlength="4"/>
+															</div>
+														</div>
+														<div class="col-6 col-xl-2">
+															<div class="form-group">
+																<label for="itemPrice[]" data-i18n="A1.Price"></label>
+																<div class="input-group smartInputGroup smartInputGroupAppend">
+																	<input type="number" class="form-control text-center" name="itemPrice[]" data-i18n="[placeholder]A1.Price" required min="0" step="0.01" maxlength="50"/>
+																	<span class="input-group-append">
+																		<select class="form-control" name="itemCurrency[]" required>
+																			<option value="EUR">€</option>
+																			<option value="USD">$</option>
+																		</select>
+																	</span>
+																	<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="itemOrigin[]" data-i18n="A1.Origin"></label>
+														<input type="text" class="form-control" name="itemOrigin[]" data-i18n="[placeholder]A1.Product_origin" maxlength="255"/>
+													</div>
+													<div class="form-group">
+														<label for="itemHScode[]" data-i18n="A1.HS_Code"></label>
+														<input type="text" class="form-control" name="itemHScode[]" data-i18n="[placeholder]A1.Product_HS_Code" maxlength="255"/>
+														<small class="form-text text-muted" data-i18n="A1.HS_CODE_TIP"></small>
+													</div>
+												</div>
+											</div>
+										</div>										
+									</div>
+									<div class="text-center mt-3">
+										<button class="btn" id="addItemBtn" data-i18n="A1.Add_product"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-2 Prezzo contrattuale -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse2">
+								<div data-i18n="[html]A2.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse2">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A2.TIP_MSG"></span>
+									</div><div class="form-group">
+										<label for="amount" data-i18n="A2.Amount"></label>
+										<div class="input-group smartInputGroup smartInputGroupAppend">
+											<input type="number" class="form-control text-center" name="amount" data-i18n="[placeholder]A2.Total_amount" required min="0" step="0.01" maxlength="50"/>
+											<span class="input-group-append">
+												<select class="form-control" name=amountCurrency" required>
+													<option value="EUR">€</option>
+													<option value="USD">$</option>
+												</select>
+											</span>
+											<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-3 Termini di consegna (Art. 8)-->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse3">
+								<div data-i18n="[html]A3.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse3">
+								<div class="expansion-panel-body">
+									<div class="list-group" id="shippingListGroup">
+										<!-- Scelta termini -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#shippingTermChoice">
+												<div data-i18n="A3.Terms_choose"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#shippingListGroup" id="shippingTermChoice">
+												<div class="expansion-panel-body">
+													<div class="alert alert-light infoAlert">
+														<span class="material-symbols-outlined icon filled">info</span>
+														<span class="text" data-i18n="A3.ALERT_MSG"></span>
+													</div>
+													<div class="alert alert-warning tipAlert">
+														<span class="material-symbols-outlined icon filled">lightbulb</span>
+														<span class="text" data-i18n="A3.TIP_MSG"></span>
+													</div>
+													<div class="form-row">
+														<div class="col-4">
+															<div class="form-group">
+																<label for="shippingTermCatalogId" data-i18n="A3.Catalog"></label>
+																<select class="form-control" name="shippingTermCatalogId" required>
+																	<option value="" data-i18n="A3.Select"></option>
+																	<option value="incoterms2020">Incoterms 2020</option>
+																	<option value="incoterms2010">Incoterms 2010</option>
+																	<option value="incoterms2000">Incoterms 2000</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-8">
+															<div class="form-group">
+																<label for="shippingTermId" data-i18n="A3.Term"></label>
+																<select class="form-control" name="shippingTermId" required>
+																	<option value="" data-i18n="A3.Select"></option>
+																	
+																	<option value="EXW" shippingTermCatalogId="incoterms2020" data-i18n="A3.EXW"></option>
+																	<option value="FCA" shippingTermCatalogId="incoterms2020" data-i18n="A3.FCA"></option>
+																	<option value="FAS" shippingTermCatalogId="incoterms2020" data-i18n="A3.FAS"></option>
+																	<option value="FOB" shippingTermCatalogId="incoterms2020" data-i18n="A3.FOB"></option>
+																	<option value="CPT" shippingTermCatalogId="incoterms2020" data-i18n="A3.CPT"></option>
+																	<option value="CIF" shippingTermCatalogId="incoterms2020" data-i18n="A3.CIF"></option>
+																	<option value="CIP" shippingTermCatalogId="incoterms2020" data-i18n="A3.CIP"></option>
+																	<option value="CPT" shippingTermCatalogId="incoterms2020" data-i18n="A3.CPT"></option>
+																	<option value="DAP" shippingTermCatalogId="incoterms2020" data-i18n="A3.DAP"></option>
+																	<option value="DDP" shippingTermCatalogId="incoterms2020" data-i18n="A3.DDP"></option>
+																	<option value="DPU" shippingTermCatalogId="incoterms2020" data-i18n="A3.DPU"></option>
+							
+																	<option value="EXW" shippingTermCatalogId="incoterms2010" data-i18n="A3.EXW"></option>
+																	<option value="FCA" shippingTermCatalogId="incoterms2010" data-i18n="A3.FCA"></option>
+																	<option value="FAS" shippingTermCatalogId="incoterms2010" data-i18n="A3.FAS"></option>
+																	<option value="FOB" shippingTermCatalogId="incoterms2010" data-i18n="A3.FOB"></option>
+																	<option value="CPT" shippingTermCatalogId="incoterms2010" data-i18n="A3.CPT"></option>
+																	<option value="CFR" shippingTermCatalogId="incoterms2010" data-i18n="A3.CFR"></option>
+																	<option value="CIF" shippingTermCatalogId="incoterms2010" data-i18n="A3.CIF"></option>
+																	<option value="CIP" shippingTermCatalogId="incoterms2010" data-i18n="A3.CIP"></option>
+																	<option value="CPT" shippingTermCatalogId="incoterms2010" data-i18n="A3.CPT"></option>
+																	<option value="DAT" shippingTermCatalogId="incoterms2010" data-i18n="A3.DAT"></option>
+																	<option value="DAP" shippingTermCatalogId="incoterms2010" data-i18n="A3.DAP"></option>
+																	<option value="DDP" shippingTermCatalogId="incoterms2010" data-i18n="A3.DDP"></option>
+							
+																	<option value="EXW" shippingTermCatalogId="incoterms2000" data-i18n="A3.EXW"></option>
+																	<option value="FCA" shippingTermCatalogId="incoterms2000" data-i18n="A3.FCA"></option>
+																	<option value="FAS" shippingTermCatalogId="incoterms2000" data-i18n="A3.FAS"></option>
+																	<option value="FOB" shippingTermCatalogId="incoterms2000" data-i18n="A3.FOB"></option>
+																	<option value="CFR" shippingTermCatalogId="incoterms2000" data-i18n="A3.CFR"></option>
+																	<option value="CIF" shippingTermCatalogId="incoterms2000" data-i18n="A3.CIF"></option>
+																	<option value="CPT" shippingTermCatalogId="incoterms2000" data-i18n="A3.CPT"></option>
+																	<option value="CIP" shippingTermCatalogId="incoterms2000" data-i18n="A3.CIP"></option>
+																	<option value="DAF" shippingTermCatalogId="incoterms2000" data-i18n="A3.DAF"></option>
+																	<option value="DES" shippingTermCatalogId="incoterms2000" data-i18n="A3.DES"></option>
+																	<option value="DEQ" shippingTermCatalogId="incoterms2000" data-i18n="A3.DEQ"></option>
+																	<option value="DDU" shippingTermCatalogId="incoterms2000" data-i18n="A3.DDU"></option>
+																	<option value="DDP" shippingTermCatalogId="incoterms2000" data-i18n="A3.DDP"></option>            
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="shippingTermPlace" data-i18n="A3.Place"></label>
+														<input type="text" class="form-control" name="shippingTermPlace" data-i18n="[placeholder]A3.Place" maxlength="255"/>
+													</div>
+													<div class="form-group">
+														<label for="shippingTermNotes" data-i18n="A3.Notes"></label>
+														<input type="text" class="form-control" name="shippingTermNotes" data-i18n="[placeholder]A3.Notes" required maxlength="255"/>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Vettore consegna -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#shippingCarrier">
+												<div data-i18n="A3.Shipping_carrier"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#shippingListGroup" id="shippingCarrier">
+												<div class="expansion-panel-body">
+													<div class="form-group">
+														<label for="shippingName" data-i18n="general.Business_name"></label>
+														<input type="text" class="form-control" name="shippingName" data-i18n="[placeholder]general.Business_name" autocomplete="off" required/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="shippingVatCode" data-i18n="general.Vat_code"></label>
+														<input type="text" class="form-control" name="shippingVatCode" data-i18n="[placeholder]general.Vat_code" autocomplete="off"/>
+													</div>
+													<div class="form-row">
+														<div class="col-8">
+															<div class="form-group">
+																<label for="shippingStreet" data-i18n="general.Street_or_Square"></label>
+																<input type="text" class="form-control" name="shippingStreet" data-i18n="[placeholder]general.Street_or_Square" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-4">					
+															<div class="form-group">
+																<div class="form-group">
+																	<label for="shippingCountry" data-i18n="general.Country"></label>
+																	<select type="text" class="form-control" name="shippingCountry">
+																		<option value="" data-i18n="general.Select"></option>
+																	</select>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="shippingCity" data-i18n="general.City"></label>
+																<input type="text" class="form-control" name="shippingCity" data-i18n="[placeholder]general.City" maxlength="255"/>
+															</div>
+														</div>
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="shippingProvince" data-i18n="general.Province"></label>
+																<input type="text" class="form-control" name="shippingProvince" data-i18n="[placeholder]general.Province" maxlength="50"/>
+															</div>
+														</div>										
+														<div class="col-3">					
+															<div class="form-group">
+																<label for="shippingPostalCode" data-i18n="general.Postal_code"></label>
+																<input type="text" class="form-control" name="shippingPostalCode" data-i18n="[placeholder]general.Postal_code" maxlength="50"/>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Contatto consegna -->
+										<div class="expansion-panel list-group-item">
+											<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#shippingContact">
+												<div data-i18n="A3.Contact_person"></div>
+												<div class="expansion-panel-icon ml-3 text-black-secondary">
+													<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+													<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+												</div>
+											</a>
+											<div class="collapse" data-parent="#shippingListGroup" id="shippingContact">
+												<div class="expansion-panel-body">
+													<div class="form-row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="shippingContactName" data-i18n="general.Name"></label>
+																<input type="text" class="form-control" name="shippingContactName" data-i18n="[placeholder]general.Name" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+														<div class="col-6">													
+															<div class="form-group">
+																<label for="shippingContactSurname" data-i18n="general.Surname"></label>
+																<input type="text" class="form-control" name="shippingContactSurname" data-i18n="[placeholder]general.Surname" autocomplete="off" required maxlength="100"/>
+																<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="shippingContactEmail" data-i18n="general.Email"></label>
+														<input type="email" class="form-control" name="shippingContactEmail" data-i18n="[placeholder]general.Email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" maxlength="50" autocomplete="off"/>
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+													</div>
+													<div class="form-group">
+														<label for="shippingContactPhone" data-i18n="general.Phone"></label>
+														<input type="hidden" name="shippingContactPrefix" id="shippingContactPrefix" value="+39"/>
+														<input type="tel" class="form-control" name="shippingContactPhone" data-i18n="[placeholder]general.Phone" pattern="\d{8,12}" maxlength="20" autocomplete="off"/>					
+														<div class="invalid-feedback" data-i18n="general.VALIDATION_PHONE_FIELD"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-4 Termine (data) di consegna -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse4">
+								<div data-i18n="[html]A4.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse4">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A4.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A4.TIP_MSG"></span>
+									</div>
+									<div class="form-row">
+										<div class="col-6">
+											<div class="form-group">
+												<label for="shippingMinDate" data-i18n="A4.Shipping_date_min"></label>
+												<input type="date" class="form-control text-center" name="shippingMinDate" data-i18n="[placeholder]A4.DATE_PLACEHOLDER" required autocomplete="off"/>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group">
+												<label for="shippingMaxDate" data-i18n="A4.Shipping_date_max"></label>
+												<input type="date" class="form-control text-center" name="shippingMaxDate" data-i18n="[placeholder]A4.DATE_PLACEHOLDER" required autocomplete="off"/>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-5 Ispezione dei prodotti (Art. 3) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse5">
+								<div data-i18n="[html]A5.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse5">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A5.TIP_MSG"></span>
+									</div>
+									<div class="form-row">
+										<div class="col-4">
+											<div class="form-group">
+												<label for="inspectionType" data-i18n="A5.Inspection_type"></label>
+												<select class="form-control" name="inspectionType">
+													<option value="" data-i18n="A5.Select"></option>
+													<option value="uponShipment" data-i18n="A5.Upon_shipment"></option>
+													<option value="beforeShipment" data-i18n="A5.Before_shipment"></option>
+													<option value="other" data-i18n="A5.Other"></option>
+												</select>
+											</div>
+										</div>
+										<div class="col-8">
+											<div class="form-group">
+												<label for="inspectionNotes" data-i18n="A5.Notes"></label>
+												<input type="text" class="form-control" name="inspectionNotes" data-i18n="[placeholder]A5.Notes" required maxlength="255"/>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inspectionFee" data-i18n="A5.Inspection_fee"></label>
+										<select class="form-control" name="inspectionFee" required>
+											<option value="" data-i18n="A5.Select"></option>
+											<option value="seller" data-i18n="A5.Paid_by_seller"></option>
+											<option value="buyer" data-i18n="A5.Paid_by_buyer"></option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="inspectionSurveyorEnabled" data-i18n="A5.Inspection_surveyor"></label>
+										<select class="form-control" name="inspectionSurveyorEnabled">
+											<option value="" data-i18n="A5.Select"></option>
+											<option value="notRequired" data-i18n="A5.Not_required"></option>
+											<option value="required" data-i18n="A5.Required"></option>
+										</select>
+									</div>
+									<div class="form-group" id="inspectionSurveyorDiv">
+										<label for="inspectionSurveyor" data-i18n="A5.Inspection_surveyor"></label>
+										<input type="text" class="form-control" name="inspectionSurveyor" data-i18n="[placeholder]A5.Inspection_surveyor" required maxlength="255"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-6 Riserva di proprietà (Art. 7) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse6">
+								<div data-i18n="[html]A6.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse6">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A6.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<label for="retentionOfTitle" data-i18n="A6.Retention_of_title"></label>
+										<select class="form-control" name="retentionOfTitle" required>
+											<option value="" data-i18n="A6.None"></option>
+											<option value="simple" data-i18n="A6.Simple"></option>
+											<option value="extended" data-i18n="A6.Extended"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-7 Condizioni di pagamento (Art. 5) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse7">
+								<div data-i18n="[html]A7.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse7">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A7.TIP_MSG"></span>
+									</div>
+									<div class="list-group" id="paymentListGroup">
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="delayed" id="delayedPayment">
+												<label class="custom-control-label" for="delayedPayment" data-i18n="A7.Delayed_payment"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="delayedPaymentDiv">
+											<div class="form-group">
+												<label for="delayedPaymentDays" data-i18n="A7.delayedPayment.Delayed_payment_days"></label>
+												<input type="number" class="form-control text-center" name="delayedPaymentDays" data-i18n="[placeholder]A7.delayedPayment.Days" autocomplete="off" min="0" step="1" required autocomplete="off"/>
+												<small class="form-text text-muted" data-i18n="A7.delayedPayment.DELAYED_PAYMENT_DAYS_TIPS"></small>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="delayedPaymentOther" data-i18n="A7.delayedPayment.Other"></label>
+												<input type="text" class="form-control" name="delayedPaymentOther" data-i18n="[placeholder]A7.delayedPayment.Other" autocomplete="off"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="prepayment" id="prepayment">
+												<label class="custom-control-label" for="prepayment" data-i18n="A7.Prepayment"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="prepaymentDiv">
+											<div class="form-group">
+												<label for="prepaymentDate" data-i18n="A7.prepayment.Prepayment_date"></label>
+												<input type="date" class="form-control text-center" name="prepaymentDate" data-i18n="[placeholder]A7.prepayment.DATE_PLACEHOLDER" required autocomplete="off"/>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="prepaymentPercentage" data-i18n="A7.prepayment.Prepayment_percentage"></label>
+												<div class="input-group smartInputGroup smartInputGroupAppend">
+													<input type="number" class="form-control text-center" name="prepaymentPercentage" data-i18n="[placeholder]A7.prepayment.Percentage" autocomplete="off" min="0" step="1" max="100" required autocomplete="off"/>
+													<span class="input-group-append"><span>%</span></span>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" class="custom-control-input" name="prepaymentBond" value="true" id="prepaymentBond">
+													<label class="custom-control-label" for="prepaymentBond" data-i18n="A7.prepayment.PREPAYMENT_BOND_MSG"></label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="againstDocuments" id="paymentAgainstDocuments">
+												<label class="custom-control-label" for="paymentAgainstDocuments" data-i18n="A7.Payment_against_documents"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="paymentAgainstDocumentsDiv">
+											<div class="form-group">
+												<label for="paymentAgainstDocumentsType" data-i18n="A7.paymentAgainstDocuments.Type"></label>
+												<select class="form-control" name="paymentAgainstDocumentsType" required>
+													<option value="" data-i18n="general.Select"></option>
+													<option value="DP" data-i18n="A7.paymentAgainstDocuments.Documents_against_payment"></option>
+													<option value="DA" data-i18n="A7.paymentAgainstDocuments.Documents_against_acceptation"></option>
+												</select>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="irrevocableDocumentaryCredit" id="irrevocableDocumentaryCredit">
+												<label class="custom-control-label" for="irrevocableDocumentaryCredit" data-i18n="A7.Irrevocable_documentary_credit"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="irrevocableDocumentaryCreditDiv">
+											<div class="form-group">
+												<label for="irrevocableDocumentaryIssuePlace" data-i18n="A7.irrevocableDocumentaryCredit.Irrevocable_documentary_credit_issue_place"></label>
+												<input type="text" class="form-control" name="irrevocableDocumentaryIssuePlace" data-i18n="[placeholder]A7.irrevocableDocumentaryCredit.Place" autocomplete="off"/>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryConfirmationPlace" data-i18n="A7.irrevocableDocumentaryCredit.Irrevocable_documentary_credit_confirmation_place"></label>
+												<input type="text" class="form-control" name="irrevocableDocumentaryConfirmationPlace" data-i18n="[placeholder]A7.irrevocableDocumentaryCredit.Place" autocomplete="off"/>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryUse" data-i18n="A7.irrevocableDocumentaryCredit.Irrevocable_documentary_credit_use"></label>
+												<select class="form-control" name="irrevocableDocumentaryUse" required>
+													<option value="" data-i18n="general.Select"></option>
+													<option value="sightPayment" data-i18n="A7.irrevocableDocumentaryCredit.Sight_payment"></option>
+													<option value="deferredPayment" data-i18n="A7.irrevocableDocumentaryCredit.Deferred_payment"></option>
+													<option value="acceptanceOfDrafts" data-i18n="A7.irrevocableDocumentaryCredit.Acceptance_of_drafts">Accettazione di tratte</option>
+													<option value="negotiation" data-i18n="A7.irrevocableDocumentaryCredit.Negotiation"></option>
+												</select>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryDays" data-i18n="A7.irrevocableDocumentaryCredit.Days"></label>
+												<input type="number" class="form-control text-center" name="irrevocableDocumentaryDays" data-i18n="[placeholder]A7.irrevocableDocumentaryCredit.Days" autocomplete="off" min="0" step="1" required autocomplete="off"/>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryNotificationDate" data-i18n="A7.irrevocableDocumentaryCredit.Notification_date"></label>
+												<input type="date" class="form-control text-center" name="irrevocableDocumentaryNotificationDate" data-i18n="[placeholder]A7.irrevocableDocumentaryCredit.DATE_PLACEHOLDER" required autocomplete="off"/>
+												<small class="form-text text-muted" data-i18n="A7.irrevocableDocumentaryCredit.NOTIFICATION_DATE_TIPS"></small>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" name="irrevocableDocumentaryPartialShippings" value="1" id="irrevocableDocumentaryPartialShippings">
+												<label class="custom-control-label" for="irrevocableDocumentaryPartialShippings" data-i18n="A7.irrevocableDocumentaryCredit.Partial_shippings"></label>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" name="irrevocableDocumentaryTranshipments" value="1" id="irrevocableDocumentaryTranshipments">
+												<label class="custom-control-label" for="irrevocableDocumentaryTranshipments" data-i18n="A7.irrevocableDocumentaryCredit.Transhipments"></label>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryOther" data-i18n="A7.irrevocableDocumentaryCredit.Other"></label>
+												<input type="text" class="form-control" name="irrevocableDocumentaryOther" data-i18n="[placeholder]A7.irrevocableDocumentaryCredit.Other" autocomplete="off"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="irrevocableBankPaymentObligation" id="irrevocableBankPaymentObligation">
+												<label class="custom-control-label" for="irrevocableBankPaymentObligation" data-i18n="A7.irrevocableDocumentaryCredit.Irrevocable_bank_payment_obligation"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="irrevocableBankPaymentObligationDiv">
+											<div class="form-group">
+												<label for="irrevocableBankPaymentObligationType" data-i18n="A7.irrevocableBankPaymentObligation.Type"></label>
+												<select class="form-control" name="irrevocableBankPaymentObligationType" required>
+													<option value="" data-i18n="general.Select"></option>
+													<option value="settlemenByPayment" data-i18n="A7.irrevocableBankPaymentObligation.Settlement_by_payment"></option>
+													<option value="settlemenByDeferredPayment" data-i18n="A7.irrevocableBankPaymentObligation.Settlement_by_deferred_payment"></option>
+												</select>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryDays" data-i18n="A7.irrevocableBankPaymentObligation.Days"></label>
+												<input type="number" class="form-control text-center" name="irrevocableDocumentaryDays" data-i18n="[placeholder]A7.irrevocableBankPaymentObligation.Days" autocomplete="off" min="0" step="1" required autocomplete="off"/>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableDocumentaryNotificationDate" data-i18n="A7.irrevocableBankPaymentObligation.Notification_date"></label>
+												<input type="date" class="form-control text-center" name="irrevocableDocumentaryNotificationDate" data-i18n="[placeholder]A7.irrevocableBankPaymentObligation.DATE_PLACEHOLDER" required autocomplete="off"/>
+												<small class="form-text text-muted" data-i18n="A7.irrevocableBankPaymentObligation.NOTIFICATION_DATE_TIPS"></small>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+											<div class="form-group">
+												<label for="irrevocableBankPaymentObligationOther" data-i18n="A7.irrevocableBankPaymentObligation.Other"></label>
+												<input type="text" class="form-control" name="irrevocableBankPaymentObligationOther" data-i18n="[placeholder]A7.irrevocableBankPaymentObligation.Other" autocomplete="off"/>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="custom-control custom-radio">
+												<input type="radio" class="custom-control-input" name="payment" value="other" id="otherPayment">
+												<label class="custom-control-label" for="otherPayment" data-i18n="A7.Other"></label>
+											</div>
+										</div>
+										<div class="my-3 mx-5" id="otherPaymentDiv">
+											<div class="form-group">
+												<input type="text" class="form-control" name="paymentOther" data-i18n="[placeholder]A7.Other" required autocomplete="off"/>
+												<small class="form-text text-muted" data-i18n="A7.other.PAYMENT_OTHER_TIPS"></small>
+												<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-8 Documenti (Art. 9)-->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse8">
+								<div data-i18n="[html]A8.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse8">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A8.TIP_MSG"></span>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="invoice" name="invoice" type="checkbox" value="1">
+										<label class="custom-control-label" for="invoice" data-i18n="A8.Invoice"></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="ddt" name="ddt" type="checkbox" value="1">
+										<label class="custom-control-label" for="ddt" data-i18n="A8.DDT"></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="insuranceDocument" name="insuranceDocument" type="checkbox" value="1">
+										<label class="custom-control-label" for="insuranceDocument" data-i18n="A8.Insurance_document"></label>
+									</div>
+									<div class="custom-control custom-checkbox">						
+										<input class="custom-control-input" id="originCertificate" name="originCertificate" type="checkbox" value="1">
+										<label class="custom-control-label" for="originCertificate" data-i18n="A8.Origin_certificate"></label>
+									</div>
+									<div class="custom-control custom-checkbox">						
+										<input class="custom-control-input" id="preferentialOriginCertificate" name="preferentialOriginCertificate" type="checkbox" value="1">
+										<label class="custom-control-label" for="preferentialOriginCertificate" data-i18n="A8.Preferential_origin_certificate"></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="inspectionCertificate" name="inspectionCertificate" type="checkbox" value="1">
+										<label class="custom-control-label" for="inspectionCertificate" data-i18n="A8.Inspection_certificate"></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="packingList" name="packingList" type="checkbox" value="1">
+										<label class="custom-control-label" for="packingList" data-i18n="A8.Packing_list"></label>
+									</div>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="otherDocument" name="otherDocument" type="checkbox" value="1">
+										<label class="custom-control-label" for="otherDocument" data-i18n="A8.Other"></label>
+									</div>
+									<div class="my-3 mx-5" id="otherDocumentDiv">
+										<div class="form-group">
+											<input type="text" class="form-control" name="documentOther" data-i18n="[placeholder]A8.Other" required autocomplete="off"/>
+											<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-9 Data di risoluzione (Art. 10)-->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse9">
+								<div data-i18n="[html]A9.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse9">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A9.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A9.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<label for="terminationDate" data-i18n="A9.Termination_date"></label>
+										<input type="date" class="form-control text-center" name="terminationDate" data-i18n="[placeholder]A9.DATE_PLACEHOLDER" required autocomplete="off"/>
+										<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-10 Responsabilità per ritardata consegna (Art. 10.2) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse10">
+								<div data-i18n="[html]A10.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse10">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A10.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A10.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-switch">
+											<input class="custom-control-input" id="lateDeliveryPenalty" name="lateDeliveryPenalty" type="checkbox">
+											<span class="custom-control-track"></span>
+											<label class="custom-control-label" for="lateDeliveryPenalty" data-i18n="A10.LATE_DELIVERY_PENALTY_CTA"></label>
+										</div>
+									</div>
+									<div class="my-3 mx-5" id="lateDeliveryPenaltyDiv">
+										<div class="form-group">
+											<div class="input-group smartInputGroup smartInputGroupAppend">
+												<input type="number" class="form-control text-center" name="lateDeliveryPenaltyPercentage" data-i18n="[placeholder]A10.Price_percentage" autocomplete="off" min="0" step="1" max="100"/>
+												<span class="input-group-append"><span>%</span></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="input-group smartInputGroup smartInputGroupAppend">
+												<input type="number" class="form-control text-center" name="lateDeliveryPenaltyMaxPercentage" data-i18n="[placeholder]A10.Max_limit_percentage" autocomplete="off" min="0" step="1" max="100"/>
+												<span class="input-group-append"><span>%</span></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-11 Limitazione di responsabilità per ritardata consegna (Art. 10.4) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse11">
+								<div data-i18n="[html]A11.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse11">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A11.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A11.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-switch">
+											<input class="custom-control-input" id="lateDeliverySellerResponsabilityEnabled" name="lateDeliverySellerResponsabilityEnabled" type="checkbox">
+											<span class="custom-control-track"></span>
+											<label class="custom-control-label" for="lateDeliverySellerResponsabilityEnabled" data-i18n="A11.EXCEED_AMOUNT_CTA"></label>
+										</div>
+									</div>
+									<div class="my-3 mx-5" id="lateDeliverySellerResponsabilityDiv">
+										<div class="form-group">
+											<div class="input-group smartInputGroup smartInputGroupAppend">
+												<input type="number" class="form-control text-center" name="lateDeliverySellerResponsabilityPercentage" data-i18n="[placeholder]A11.Seller_percentage" autocomplete="off" min="0" step="1" max="100"/>
+												<span class="input-group-append"><span>%</span></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-12 Luogo di ispezione all'arrivo (Art. 11.1) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse12">
+								<div data-i18n="[html]A12.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse12">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A12.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A12.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="examinationPlace" value="none" id="examinationPlaceNone" checked>
+											<label class="custom-control-label" for="examinationPlaceNone" data-i18n="A12.NO_EXAMINATION_CTA"></label>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="examinationPlace" value="placeOfBusiness" id="examinationPlaceOfBusiness" checked>
+											<label class="custom-control-label" for="examinationPlaceOfBusiness" data-i18n="A12.BUSINESS_PLACE_OF_EXAMINATION_CTA"></label>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="examinationPlace" value="other" id="examinationOther">
+											<label class="custom-control-label" for="examinationOther" data-i18n="A12.OTHER_PLACE_OF_EXAMINATION_CTA"></label>
+										</div>
+									</div>
+									<div class="mx-5" id="examinationPlaceOtherDiv">
+										<div class="form-group">
+											<input type="text" class="form-control" name="examinationPlaceOther" data-i18n="[placeholder]A12.Other" autocomplete="off"/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-13 Garanzia sotto regolamento EU -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse13">
+								<div data-i18n="[html]A13.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse13">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A13.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A13.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="warrantyPeriod" value="none" id="noWarrantyPeriod" checked>
+											<label class="custom-control-label" for="noWarrantyPeriod" data-i18n="A13.NO_WARRANTY_CTA"></label>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="warrantyPeriod" value="afterSignature" id="warrantyPeriodAfterSignature">
+											<label class="custom-control-label" for="warrantyPeriodAfterSignature" data-i18n="A13.WARRANTY_AFTER_SIGNATURE_CTA"></label>
+										</div>
+									</div>
+									<div class="mx-5" id="warrantyPeriodAfterSignatureMonthsDiv">
+										<div class="form-group">
+											<input type="number" class="form-control text-center" name="warrantyPeriodAfterSignatureMonths" data-i18n="[placeholder]A13.Months" autocomplete="off" min="1" step="1"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" name="warrantyPeriod" value="afterDelivery" id="warrantyPeriodAfterDelivery">
+											<label class="custom-control-label" for="warrantyPeriodAfterDelivery" data-i18n="A13.WARRANTY_AFTER_DELIVERY_CTA"></label>
+										</div>
+									</div>
+									<div class="mx-5" id="warrantyPeriodAfterDeliveryMonthsDiv">
+										<div class="form-group">
+											<input type="number" class="form-control text-center" name="warrantyPeriodAfterDeliveryMonths" data-i18n="[placeholder]A13.Months" autocomplete="off" min="1" step="1"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="examinationPlaceOther" data-i18n="A13.Software_updates"></label>
+										<select class="form-control" name="examinationPlaceOther">
+											<option value="" data-i18n="general.Select"></option>
+											<option value="notApplicable" data-i18n="A13.SW_UPDATES_NOT_APPLICABLE_CTA"></option>
+											<option value="notApplicable" data-i18n="A13.SW_UPDATES_FREE_OF_CHARGE_CTA"></option>
+											<option value="notApplicable" data-i18n="A13.SW_UPDATES_AGAINS_PAYMENTS_CTA"></option>
+										</select>
+										<small class="form-text text-muted" data-i18n="A13.SW_UPDATES_TIPS"></small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-14 Termine massimo per notifica di non conformità -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse14">
+								<div data-i18n="[html]A14.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse14">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A14.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A14.TIP_MSG"></span>
+									</div>
+									<div class="mx-5" id="warrantyPeriodAfterSignatureMonthsDiv">
+										<div class="form-group">
+											<label for="nonConformityNotificationDelay" data-i18n="A14.Months"></label>
+											<input type="number" class="form-control text-center" name="nonConformityNotificationDelay" data-i18n="[placeholder]A14.Months" autocomplete="off" min="1" step="1"/>
+											<small class="form-text text-muted" data-i18n="A14.Months_after_delivery"></small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-15 Limitazione di responsabilità per non conformità (Art. 11.5) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse15">
+								<div data-i18n="[html]A15.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse15">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A15.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A15.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-switch">
+											<input class="custom-control-input" id="nonConformityLiabilityPercentageEnabled" name="nonConformityLiabilityPercentageEnabled" type="checkbox">
+											<span class="custom-control-track"></span>
+											<label class="custom-control-label" for="nonConformityLiabilityPercentageEnabled" data-i18n="A15.LIMITATION_OF_LIABILITY_PERCENTAGE_CTA"></label>
+										</div>
+									</div>
+									<div class="my-3 mx-5" id="nonConformityLiabilityPercentageDiv">
+										<div class="input-group smartInputGroup smartInputGroupAppend">
+											<input type="number" class="form-control text-center" name="nonConformityLiabilityPercentage" data-i18n="[placeholder]A15.Percentage" autocomplete="off" min="0" step="1" max="100"/>
+											<span class="input-group-append"><span>%</span></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-switch">
+											<input class="custom-control-input" id="nonConformityLiabilityAmountEnabled" name="nonConformityLiabilityAmountEnabled" type="checkbox">
+											<span class="custom-control-track"></span>
+											<label class="custom-control-label" for="nonConformityLiabilityAmountEnabled" data-i18n="A15.LIMITATION_OF_LIABILITY_AMOUNT_CTA"></label>
+										</div>
+									</div>
+									<div class="my-3 mx-5" id="nonConformityLiabilityAmountDiv">
+										<div class="form-group">
+											<div class="input-group smartInputGroup smartInputGroupAppend">
+												<input type="number" class="form-control text-center" name="nonConformityLiabilityAmount" data-i18n="[placeholder]A15.Amount" autocomplete="off" min="0" step="0.01"/>
+												<span class="input-group-append">
+													<select class="form-control" name="nonConformityLiabilityCurrency" required>
+														<option value="EUR">€</option>
+														<option value="USD">$</option>
+													</select>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-16 Legge applicabile (art. 1.2) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse16">
+								<div data-i18n="[html]A16.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse16">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A16.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A16.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<div class="text" data-i18n="A16.LAW_MSG"></div>
+										<input type="text" class="form-control" name="law" data-i18n="[placeholder]A16.Law" autocomplete="off"/>
+									</div>
+									<div class="form-group">
+										<div class="text" data-i18n="A16.LAW2_MSG"></div>
+										<input type="text" class="form-control" name="law2" data-i18n="[placeholder]A16.Law" autocomplete="off"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-17 Risoluzione delle controversie (art. 15) -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse17">
+								<div data-i18n="[html]A17.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse17">
+								<div class="expansion-panel-body">
+									<div class="alert alert-light infoAlert">
+										<span class="material-symbols-outlined icon filled">info</span>
+										<span class="text" data-i18n="A17.ALERT_MSG"></span>
+									</div>
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A17.TIP_MSG"></span>
+									</div>
+									<div class="form-group">
+										<label for="disputeResolution" data-i18n="A17.Dispute_resolution"></label>
+										<select type="text" class="form-control" name="disputeResolution">
+											<option value="ADR" data-i18n="A17.OPTION_0"></option>
+											<option value="arbitration" data-i18n="A17.OPTION_1"></option>
+											<option value="CGI" data-i18n="A17.OPTION_2"></option>
+											<option value="other" data-i18n="A17.OPTION_3"></option>
+											<option value="litigation" data-i18n="A17.OPTION_4"></option>
+										</select>
+									</div>
+									<div class="my-3 mx-5" id="disputeResolutionOtherDiv">
+										<div class="form-group">
+											<input type="text" class="form-control" name="disputeResolutionOther" data-i18n="[placeholder]A17.Other" required autocomplete="off"/>
+											<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+										</div>
+									</div>
+									<div class="my-3 mx-5" id="disputeResolutionLitigationDiv">
+										<div class="form-group">
+											<input type="text" class="form-control" name="disputeResolutionCompetentCourt" data-i18n="[placeholder]A17.Competent_court" required autocomplete="off"/>
+											<div class="invalid-feedback" data-i18n="general.VALIDATION_REQUIRED_FIELD"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- A-18 Altro -->
+						<div class="expansion-panel list-group-item">
+							<a class="expansion-panel-toggler collapsed" data-toggle="collapse" href="#collapse18">
+								<div data-i18n="[html]A18.TITLE"></div>
+								<div class="expansion-panel-icon ml-3 text-black-secondary">
+									<i class="collapsed-show material-icons">keyboard_arrow_down</i>
+									<i class="collapsed-hide material-icons">keyboard_arrow_up</i>
+								</div>
+							</a>
+							<div class="collapse" data-parent="#contractListGroup" id="collapse18">
+								<div class="expansion-panel-body">
+									<div class="alert alert-warning tipAlert">
+										<span class="material-symbols-outlined icon filled">lightbulb</span>
+										<span class="text" data-i18n="A18.TIP_MSG"></span>
+									</div>
+									<div class="form-group text-center">
+										<textarea class="form-control" id="other" name="other" rows="3" autocomplete="none" data-i18n="[placeholder]A18.Other"></textarea>										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!---<div class="card-footer">
+						<div class="text-center">
+							<button class="btn smartBtn" id="saveBtn" data-i18n="general.Save"></button>
+						</div>
+					</div>-->
+				</div>
+			</form>			
+		</div>
+	</ons-page>
+</template>
+
+<template id="viewContractTemplate">
+	<ons-page id="viewContractPage">
+		<ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center" data-i18n="viewContractPage.View_contract"></span>
+			<div class="right">
+				<ons-toolbar-button id="editBtn" disabled>
+					<span class="material-symbols-outlined icon">edit</span>
+				</ons-toolbar-button>
+				<ons-toolbar-button id="shareBtn">
+					<span class="material-symbols-outlined icon">share</span>
+				</ons-toolbar-button>
+			</div>
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<div class="card smartCard" id="viewContractCard">
+				<div class="text-right"><button class="btn btn-outline" id="switchSellerBuyerBtn">Switch seller/buyer</button></div>
+				<div class='statusDiv' id="draft">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">hourglass_empty</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_draft"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_DRAFT_MSG"></div>
+					<div class="text-center mt-3">
+						<button class="btn smartBtn" id="storeContractBtn" data-i18n="viewContractPage.Store_contract"></button>
+					</div>	
+				</div>
+				<div class='statusDiv' id="stored">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">done</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_saved"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_SAVED_MSG"></div>
+					<div class="text-center mt-3">
+						<button class="btn smartBtn" id="signContractBtn" data-i18n="viewContractPage.Sign_contract"></button>
+					</div>
+				</div>
+				<div class='statusDiv' id="signed">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">done</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_signed"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_SIGNED_MSG"></div>
+					<div class="text-center mt-3">
+						<button class="btn smartBtn" id="payContractBtn" data-i18n="viewContractPage.Pay_contract"></button>
+					</div>
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" id="testCardOnRampAlert">
+						<button type="button" class="close" data-dismiss="alert" title="Close"><span aria-hidden="true">&times;</span></button>
+						<div class="text-center">Test Credit/Debit Card</div>
+						<div class="d-flex justify-content-between align-items-center">
+							<div><strong>Number:</strong> <span id="testCardNumber" data-toggle="tooltip" data-placement="top" title="Numero copiato negli appunti">4485 1415 2054 4212</span></div>
+							<button class="btn btn-outline" id="copyTestCardNumberBtn"><span class="material-symbols-outlined icon">content_copy</span></button>
+						</div>
+						<div><strong>Expiry:</strong> 10/33</div>
+						<div><strong>CVC:</strong> 100</div>
+					</div>
+				</div>
+				<div class='statusDiv' id="paid">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">done</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_paid"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_PAID_MSG"></div>
+					<form class="smartForm" id="shipGoodsForm">
+						<div class="form-row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label for="courierCode" data-i18n="viewContractPage.Courier"></label>	
+									<select class="form-control" name="courierCode" id="courierCode" required>
+										<option value="" data-i18n="general.Select"></option>
+										<option value="poste-italiane">Poste Italiane</option>
+										<option value="gls-italy">GLS Italia</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label for="trackingNumber" data-i18n="viewContractPage.Tracking_number"></label>	
+									<input type="text" class="form-control" name="trackingNumber" id="trackingNumber" data-i18n="[placeholder]viewContractPage.Tracking_number" autocomplete="none" maxlenght="50" required>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="text-center mt-3">
+						<button class="btn smartBtn" id="shipGoodsBtn" data-i18n="viewContractPage.Ship_goods"></button>
+					</div>
+				</div>
+				<div class='statusDiv' id="shipped">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">done</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_shipped"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_SHIPPED_MSG"></div>
+				</div>
+				<div class='statusDiv' id="delivered">
+					<div class="text-center iconDiv">
+						<span class="material-symbols-outlined icon filled">done</span>
+					</div>
+					<div class='title' data-i18n="viewContractPage.Contract_delivered"></div>
+					<div class='text' data-i18n="viewContractPage.CONTRACT_DELIVERED_MSG"></div>
+					<div class="text-center mt-3">
+						<button class="btn smartBtn" id="getMoneyBtn" data-i18n="viewContractPage.Get_money"></button>
+					</div>
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" id="testCardOffRampAlert">
+						<button type="button" class="close" data-dismiss="alert" title="Close"><span aria-hidden="true">&times;</span></button>
+						<div class="text-center">Test Credit/Debit Card</div>
+						<div class="d-flex justify-content-between align-items-center">
+							<div><strong>Number:</strong> <span id="testCardNumber" data-toggle="tooltip" data-placement="top" title="Numero copiato negli appunti">4800 3376 3049 5182</span></div>
+							<button class="btn btn-outline" id="copyTestCardNumberBtn"><span class="material-symbols-outlined icon">content_copy</span></button>
+						</div>
+						<div><strong>Expiry:</strong> 10/33</div>
+						<div><strong>CVC:</strong> 000</div>
+					</div>
+				</div>
+				<div class="trackingDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Contract_status"></div>
+					<div class="stepper-horiz" id="stepper">
+						<div class="step" id="draft">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.draft"></span>
+						</div>
+						<div class="step" id="stored">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.stored"></span>
+						</div>
+						<div class="step" id="signed">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.signed"></span>
+						</div>
+						<div class="step" id="paid">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.paid"></span>
+						</div>
+						<div class="step" id="shipped">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.shipped"></span>
+						</div>
+						<div class="step" id="delivered">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.delivered"></span>
+						</div>
+						<div class="step" id="completed">
+							<div class="stepper-icon"><span></span></div>
+							<span class="stepper-text" data-i18n="contractStatus.completed"></span>
+						</div>
+					</div>
+				</div>
+				<div class="list-group list-group-flush shippingStatusDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Shipping_status"></div>
+					<div class="sectionSubtitle">
+						<span id="courierCode"></span>
+						<span id="trackingNumber"></span>
+					</div>
+					<div id="shippingStatus"></div>
+				</div>
+				<div class="paymentStatusDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Payment_status"></div>
+					<div class="stepper-horiz" id="stepper">
+						<div class="step" id="buyer">
+							<div class="stepper-icon"><span class="material-symbols-outlined icon filled">person</span></div>
+							<div><span class="stepper-text" data-i18n="viewContractPage.Buyer"></span></div>
+							<div><span class="stepper-text amount"></span></div>
+						</div>
+						<div class="step" id="contract">
+							<div class="stepper-icon"><span class="material-symbols-outlined icon filled">savings</span></div>
+							<div><span class="stepper-text">TradeOnChain</span></div>
+							<div><span class="stepper-text amount"></span></div>
+						</div>
+						<div class="step" id="seller">
+							<div class="stepper-icon"><span class="material-symbols-outlined icon filled">person</span></div>
+							<div><span class="stepper-text" data-i18n="viewContractPage.Seller"></span></div>
+							<div><span class="stepper-text amount"></span></div>
+						</div>
+					</div>
+				</div>
+				<div class="paymentsDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Payments"></div>
+					<div class="list-group list-group-flush" id="payments"></div>
+				</div>
+				<div class="withdrawalsDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Withdrawals"></div>
+					<div class="list-group list-group-flush" id="withdrawals"></div>
+				</div>
+				<div class="detailsDiv">
+					<div class="sectionTitle" data-i18n="viewContractPage.Contract_details"></div>
+					<div id="details">
+						<table class="table">
+							<tbody>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Contract_id"></th>
+								<td id="uid">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Contract_name"></th>
+								<td id="name">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Contract_model"></th>
+								<td id="model">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Contract_value"></th>
+								<td id="amount">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Seller"></th>
+								<td id="sellerId">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Buyer"></th>
+								<td id="buyerId">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Seller_signature"></th>
+								<td id="sellerSignature">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Buyer_signature"></th>
+								<td id="buyerSignature">-</td>
+							</tr>
+							<tr>
+								<th scope="row" data-i18n="viewContractPage.Contract_id_on_blockchain"></th>
+								<td>
+									<span id="id">-</span>
+									<a href="https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=myail-eyaaa-aaaag-alluq-cai" target="_blank" id="verifyLink" class="ml-2" data-i18n="viewContractPage.Verify"></a>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<div class="d-md-flex justify-content-md-between text-center align-items-center mt-3">
+							<button class="btn btn-outline" id="viewContractChangesBtn" data-i18n="viewContractPage.Change_log"></button>
+							<button class="btn smartBtn" id="openPdfBtn" data-i18n="viewContractPage.Open_PDF"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ons-page>
+</template>
+
+<template id="viewContractChangesTemplate">
+	<ons-page id="viewContractChangesPage">
+		<ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center" data-i18n="viewContractChangesPage.Change_log"></span>
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<div class="card smartCard" id="viewContractChangesCard">
+				<div class="card-header">
+					<div class="title" data-i18n="viewContractChangesPage.Last_changes"></div>
+					<div class="description" data-i18n="viewContractChangesPage.LAST_CHANGES_DESCRIPTION"></div>
+				</div>
+				<div class="list-group list-group-flush" id="contractChangesListGroup"></div>
+			</div>
+		</div>
+	</ons-page>
+</template>
+
+<template id="shareContractTemplate">
+	<ons-page id="shareContractPage">
+		<ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center">Condividi contratto</span>
+			<div class="right">
+			</div>			
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<div class="card smartCard" id="shareContractCard">
+				<form class="smartForm" id="shareContractForm">
+					<div class="form-group text-center">
+						<label for="message" data-i18n="shareContractPage.SHARE_MSG"></label>
+						<textarea class="form-control" id="message" name="message" rows="3" autocomplete="none" data-i18n="shareContractPage.SHARE_TEXTAREA_MSG"></textarea>
+						<button type="button" class="btn smartBtn w-auto" id="shareBtn" data-i18n="shareContractPage.SHARE_CTA"></button>
+					</div>
+					<hr class="my-4">
+					<div class="form-group text-center">
+						<label for="url" data-i18n="shareContractPage.URL_MSG"></label>
+						<input type="text" class="form-control text-center" id="url" name="url" value="" readonly data-toggle="tooltip" data-placement="top" title="Link copiato negli appunti">
+						<button type="button" class="btn smartBtn w-auto" id="copyBtn" data-i18n="shareContractPage.URL_CTA"></button>
+					</div>
+					<hr class="my-4">
+					<div class="form-group text-center">
+						<label class="qrCode" data-i18n="shareContractPage.QRCODE_MSG"></label>
+						<div id="qrcode">
+							<img width="200" height="200"/>
+						</div>
+					</div>
+				</form>	
+			</div>	
+		</div>
+	</ons-page>
+</template>
+
+<template id="addContractTemplate">
+	<ons-dialog id="addContractDialog">
+		<ons-page id="addContractPage">
+			<ons-toolbar modifier="material">
+				<div class="left" data-i18n="addContractPage.Add_contract"></div>
+				<div class="right"><ons-toolbar-button id="backBtn" role="button" data-i18n="[title]general.Close"><span class="material-symbols-outlined icon">clear</span></ons-toolbar-button></div>
+			</ons-toolbar>
+			<div class="container" id="content">
+				<div class="card smartCard" id="addContractCard">
+					<div class="material-symbols-outlined icon filled">download_for_offline</div>
+					<div id="name"></div>
+					<div id="tip" data-i18n="addContractPage.ADD_CONTRACT_MSG"></div>
+				</div>
+			</div>
+			<ons-bottom-toolbar class="bottomToolbar">
+				<button type="button" class="btn smartBtn" id="addBtn" data-i18n="[title]general.Add;general.Add"></button>
+				<a href="#" id="cancelBtn" data-i18n="general.Cancel"></a>
+			</ons-bottom-toolbar>
+		</ons-page>
+	</ons-dialog>
+</template>
+
+<template id="adminTemplate">
+	<ons-page id="adminPage">
+		<ons-toolbar id="backToolbar" modifier="material">
+            <div class="left">
+				<ons-toolbar-button id="backBtn">
+					<span class="material-symbols-outlined icon">arrow_back</span>
+				</ons-toolbar-button>
+			</div>
+			<span class="center" data-i18n="general.Admin"></span>
+        </ons-toolbar>
+		<ons-pull-hook id="pullHook">Trascina per aggiornare</ons-pull-hook>
+		<div id="progressCircular" class="loadingDiv">
+			<div class="logo"><img src="<%=API_URL%>/api/v1/resize-image?image=logo-dark.jpg&width=256&height=256x"></div>
+			<div class="title">TradeOnChain</div>
+			<div class="subtitle" data-i18n="general.Loading"></div>
+		</div>
+		<div class="container" id="content">
+			<div id="canisterWalletLabel">Wallet</div>
+			<div id="canisterWalletAddress"></div>
+			<div class="row">
+				<div class="col-sm">
+					<div class="card smartCard KPI" id="USDC">
+						<div class="balance" id="balanceUSDC">-</div>
+						<div class="balanceLabel">USDC</div>
+					</div>
+				</div>
+				<div class="col-sm">
+					<div class="card smartCard KPI" id="ETH">
+						<div class="balance" id="balanceETH">-</div>
+						<div class="balanceLabel">ETH</div>
+					</div>
+				</div>
+			</div>
+			<div id="userListLabel">Users</div>
+			<div class="list-group" id="userList"></div>
+		</div>
+	</ons-page>
+</template>

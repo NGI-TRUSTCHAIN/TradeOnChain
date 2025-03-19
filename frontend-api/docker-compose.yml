@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8085:8085"
+    volumes:
+      - .:/api
+      - /api/node_modules
+    environment:
+      - NODE_ENV=docker
+    depends_on:
+      - db
+    entrypoint: ["npm", "run", "start:docker"]
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_tradeonchain
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "3306:3306"
