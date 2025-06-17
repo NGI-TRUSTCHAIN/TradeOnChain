@@ -250,7 +250,7 @@
 		"Prepayment": "Pagamento anticipato (art. 5.2)",
 		"Payment_against_documents": "Pagamento contro documenti",
 		"Irrevocable_documentary_credit": "Credito documentario irrevocabile (art. 5.3)",
-		"Irrevocable bank payment obligation": "Obbligo irrevocabile di pagamento bancario (art. 5.5)",
+		"Irrevocable_bank_payment_obligation": "Obbligo irrevocabile di pagamento bancario (art. 5.5)",
 		"Other": "Altro",
 		"delayedPayment": {
 			"Delayed_payment_days": "Data di pagamento (se diversa dall'art. 5.1)",

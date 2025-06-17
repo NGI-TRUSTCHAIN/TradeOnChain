@@ -23,7 +23,7 @@
 		"Street_or_Square": "Street or Square",
 		"Country": "State",
 		"City": "City",
-		"Provinces": "Province",
+		"Province": "Province",
 		"Postal_code": "ZIP",
 		
 		"Data": "Data",
@@ -251,7 +251,7 @@
 		"Prepayment": "Advance Payment (art. 5.2)",
 		"Payment_against_documents": "Payment against documents",
 		"Irrevocable_documentary_credit": "Irrevocable documentary credit (art. 5.3)",
-		"Irrevocable bank payment obligation": "Irrevocable bank payment obligation (art. 5.5)",
+		"Irrevocable_bank_payment_obligation": "Irrevocable bank payment obligation (art. 5.5)",
 		"Other": "Other",
 		"delayedPayment": {
 			"Delayed_payment_days": "Payment Date (if different from art. 5.1)",
@@ -276,6 +276,7 @@
 			"Irrevocable_documentary_credit_issue_place": "Issuance Place (if applicable)",
 			"Irrevocable_documentary_credit_confirmation_place": "Confirmation Place (if applicable)",
 			"Irrevocable_documentary_credit_use": "Usable Credit for",
+			"Irrevocable_bank_payment_obligation": "Irrevocable bank payment obligation (art. 5.5)",
 			"Sight_payment": "Sight Payment",
 			"Deferred_payment": "Deferred Payment",
 			"Acceptance_of_drafts": "Acceptance of Drafts",
